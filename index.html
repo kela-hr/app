@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kela HR</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1f2937;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 30px 25px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 34px;
+      color: #047857;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #4b5563;
+      margin: 12px 0;
+    }
+
+    .beta {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #d97706;
+      font-weight: 500;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .footer a {
+      color: #047857;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img 
+      class="logo" 
+      src="data:image/png;base64,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" 
+      alt="Kela HR Logo"
+    />
+
+    <h1>Kela HR</h1>
+
+    <p>
+      Kela HR is a Chrome extension that helps you organize your LinkedIn contacts by collecting, viewing, and managing phone numbers and email addresses in one clean, easy-to-use interface.
+    </p>
+
+    <p class="beta">
+      🚧 Currently in beta testing — coming soon!
+    </p>
+
+    <div class="footer">
+      <a href="/app/terms-of-service">Terms of Service</a> |
+      <a href="/app/privacy-policy">Privacy Policy</a>
+    </div>
+  </div>
+</body>
+</html>
