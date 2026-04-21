@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kela HR - Privacy Policy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            max-width: 800px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Privacy Policy for Kela HR</h1>
+    <p>Last updated: April 21, 2026</p>
+
+    <p>
+        Kela HR ("we", "our", or "us") operates the Kela HR Chrome Extension.
+        This Privacy Policy explains how we handle user data.
+    </p>
+
+    <h2>Information We Collect</h2>
+    <p>
+        The extension uses the current tab's URL (LinkedIn profile page) to identify the profile ID.
+    </p>
+    <p>
+        Users may manually enter contact details such as email addresses and phone numbers associated with a LinkedIn profile.
+    </p>
+
+    <h2>How We Use Information</h2>
+    <p>
+        The information is used to help users organize and manage LinkedIn contacts within the extension.
+    </p>
+
+    <h2>Data Storage</h2>
+    <p>
+        Data entered by users is transmitted to and stored on our servers via API calls.
+    </p>
+    <p>
+        The stored data is associated with LinkedIn profile identifiers and is accessible to other users of the extension for the same profile.
+    </p>
+
+    <h2>Data Sharing</h2>
+    <p>
+        Data entered into the extension may be visible to and editable by other users of the extension when viewing the same LinkedIn profile.
+    </p>
+    <p>
+        We do not sell user data to third parties.
+    </p>
+
+    <h2>User Responsibility</h2>
+    <p>
+        Users should not enter sensitive personal information into the extension.
+        By entering data, users acknowledge that the information may be accessible to other users of the extension.
+    </p>
+
+    <h2>Permissions Used</h2>
+    <p>
+        The extension uses the <strong>activeTab</strong> permission to access the current tab URL,
+        which is required to identify LinkedIn profile pages.
+    </p>
+
+    <h2>Data Security</h2>
+    <p>
+        We take reasonable measures to protect data stored on our servers; however, we cannot guarantee complete security.
+    </p>
+
+    <h2>Target Audience</h2>
+    <p>
+        This extension is intended for LinkedIn users who want to manage and organize contacts.
+        It is not directed toward children under the age of 13.
+    </p>
+
+    <h2>Contact Us</h2>
+    <p>
+        If you have any questions about this Privacy Policy, you can contact us at:
+    </p>
+    <p>
+        <strong>Email:</strong> kela-hr@googlegroups.com
+    </p>
+
+</body>
+</html>
