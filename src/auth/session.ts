@@ -25,25 +25,55 @@ export function isLoggedIn(): boolean {
   return !!getToken();
 }
 
-// Best-effort: sync the JWT to the installed Chrome extension(s).
-// Silently no-ops if chrome.runtime isn't available or sendMessage rejects.
-export function syncToExtension(token: string, email: string): void {
-  const chromeRuntime = (window as unknown as {
-    chrome?: { runtime?: { sendMessage?: (...args: unknown[]) => void } };
-  }).chrome?.runtime;
-  if (!chromeRuntime?.sendMessage) return;
+type ChromeRuntime = {
+  sendMessage?: (...args: unknown[]) => void;
+  lastError?: unknown;
+};
 
-  try {
-    chromeRuntime.sendMessage(
-      EXTENSION_ID,
-      { type: 'kela_hr_login', token, email },
-      () => {
+const getChromeRuntime = (): ChromeRuntime | undefined =>
+  (window as unknown as { chrome?: { runtime?: ChromeRuntime } }).chrome?.runtime;
+
+/**
+ * Best-effort fire-and-await of a message to the installed Chrome extension.
+ * Resolves on the extension's ack or after a short timeout (so a missing
+ * extension doesn't block the caller). Never rejects.
+ */
+function postToExtension(payload: Record<string, unknown>): Promise<void> {
+  return new Promise((resolve) => {
+    const chromeRuntime = getChromeRuntime();
+    if (!chromeRuntime?.sendMessage) {
+      resolve();
+      return;
+    }
+
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      resolve();
+    };
+    const timer = window.setTimeout(finish, 1500);
+
+    try {
+      chromeRuntime.sendMessage(EXTENSION_ID, payload, () => {
         // Read lastError to silence "Unchecked runtime.lastError" warnings.
-        void (window as unknown as { chrome?: { runtime?: { lastError?: unknown } } })
-          .chrome?.runtime?.lastError;
-      },
-    );
-  } catch {
-    // ignore — extension not installed or sendMessage threw
-  }
+        void chromeRuntime.lastError;
+        window.clearTimeout(timer);
+        finish();
+      });
+    } catch {
+      window.clearTimeout(timer);
+      finish();
+    }
+  });
+}
+
+/** Push the JWT to the extension after a successful website login. */
+export function syncToExtension(token: string, email: string): Promise<void> {
+  return postToExtension({ type: 'kela_hr_login', token, email });
+}
+
+/** Tell the extension to drop its stored JWT (mirrors website logout). */
+export function notifyExtensionLogout(): Promise<void> {
+  return postToExtension({ type: 'kela_hr_logout' });
 }

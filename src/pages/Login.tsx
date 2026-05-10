@@ -28,9 +28,16 @@ export function Login() {
   const cooldownRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (session.isLoggedIn()) {
+    if (!session.isLoggedIn()) return;
+    // Already logged in on the website. If the user got here by clicking the
+    // extension's "Login" button, push the JWT to the extension before
+    // redirecting so the popup picks it up.
+    const token = session.getToken();
+    const email = session.getEmail();
+    (async () => {
+      if (token && email) await session.syncToExtension(token, email);
       window.location.replace('/dashboard.html');
-    }
+    })();
   }, []);
 
   useEffect(() => {
@@ -94,7 +101,9 @@ export function Login() {
     try {
       const res = await authApi.verifyOtp(email, code.trim());
       session.setSession(res.token, res.email);
-      session.syncToExtension(res.token, res.email);
+      // Wait for the extension to ack (or a short timeout) before navigating —
+      // otherwise the renderer is torn down and the IPC is dropped.
+      await session.syncToExtension(res.token, res.email);
       window.location.href = '/dashboard.html';
     } catch (e) {
       setError(humanizeError(e, 'verify'));
