@@ -13,8 +13,11 @@ export function AppLayout({ children }: { children: ReactNode }) {
     setLoggedIn(session.isLoggedIn());
   }, []);
 
-  function onLogout() {
+  async function onLogout() {
     session.clear();
+    // Mirror the logout into the extension so the popup drops its JWT too.
+    // notifyExtensionLogout times out quickly if the extension isn't installed.
+    await session.notifyExtensionLogout();
     window.location.href = '/';
   }
 
